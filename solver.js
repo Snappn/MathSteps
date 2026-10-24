@@ -27,12 +27,33 @@ function multiplyDivide(pieces) {
         const op = pieces[i];
         if (op === "*" || op === "/") {
             const left = Number(pieces[i - 1]);
-            const right = Number(pieces[i +1]);
+            const right = Number(pieces[i + 1]);
             let answer;
             if (op === "*") {
                 answer = left * right;
             } else {
                 answer = left / right;
+            }
+            pieces.splice(i - 1, 3, String(answer));
+            addStep(left + " " + op + " " + right + " = " + answer, pieces);
+        } else {
+            i = i + 1;
+        }
+    }
+}
+
+function addSubtract(pieces) { 
+    let i = 0;
+    while (i < pieces.length) {
+        const op = pieces[i];
+        if (op === "+"  || op === "-") {
+            const left = Number(pieces[i - 1]);
+            const right = Number(pieces[i + 1]);
+            let answer; 
+            if (op === "+") {
+                answer = left + right;
+            } else { 
+                answer = left - right;
             }
             pieces.splice(i - 1, 3, String(answer));
             addStep(left + " " + op + " " + right + " = " + answer, pieces);
@@ -59,6 +80,7 @@ function addStep(label, pieces) {
     li.appendChild(text);
     document.getElementById("steps").appendChild(li);
 }
+
 function showPieces(event) {
     event.preventDefault();
     const text = document.getElementById("problem").value;
@@ -67,5 +89,6 @@ function showPieces(event) {
     document.getElementById("steps").replaceChildren();
     addStep("The pieces", pieces);
     multiplyDivide(pieces);
+    addSubtract(pieces);
 }
 document.getElementById("solve-form").addEventListener("submit", showPieces);
