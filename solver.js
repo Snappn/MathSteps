@@ -10,7 +10,7 @@ function tokenize(text) {
                 pieces.push(number);
                 number = "";
             }
-            if ("+-*/".includes(ch)) {
+            if ("+-*/()".includes(ch)) {
                 pieces.push(ch);
             }
         }
@@ -21,9 +21,9 @@ function tokenize(text) {
     return pieces; 
 }
 
-function multiplyDivide(pieces) {
-    let i = 0;
-    while (i < pieces.length) {
+function multiplyDivide(pieces, start) {
+    let i = start;
+    while (i < pieces.length && pieces[i] !== ")") {
         const op = pieces[i];
         if (op === "*" || op === "/") {
             const left = Number(pieces[i - 1]);
@@ -42,9 +42,9 @@ function multiplyDivide(pieces) {
     }
 }
 
-function addSubtract(pieces) { 
-    let i = 0;
-    while (i < pieces.length) {
+function addSubtract(pieces, start) { 
+    let i = start;
+    while (i < pieces.length && pieces[i] !== ")") {
         const op = pieces[i];
         if (op === "+"  || op === "-") {
             const left = Number(pieces[i - 1]);
@@ -60,6 +60,18 @@ function addSubtract(pieces) {
         } else {
             i = i + 1;
         }
+    }
+}
+
+function parentheses(pieces) {
+    let close = pieces.indexOf(")");
+    while (close !== -1) {
+        const open = pieces.lastIndexOf("(", close);
+        multiplyDivide(pieces, open + 1);
+        addSubtract(pieces, open + 1);
+        pieces.splice(open, 3, pieces[open + 1]);
+        addStep("Drop the ( )", pieces);
+        close = pieces.indexOf(")");
     }
 }
 
@@ -88,7 +100,8 @@ function showPieces(event) {
 
     document.getElementById("steps").replaceChildren();
     addStep("The pieces", pieces);
-    multiplyDivide(pieces);
-    addSubtract(pieces);
+    parentheses(pieces);
+    multiplyDivide(pieces, 0);
+    addSubtract(pieces, 0);
 }
 document.getElementById("solve-form").addEventListener("submit", showPieces);
