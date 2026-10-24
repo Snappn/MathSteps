@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MathSteps</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <a href="#/" id="back" class="hidden" aria-label="Back to all formulas">&#8249;</a>
+            <h1>Math<span>Steps</span></h1>
+        </header>
+        <main>
+            <div id="screen-home" class="screen">
+                <label id="search-box">
+                    <span class="sr-only">Search formulas</span>
+                    <input type="search" id="search" placeholder="Search: slope, °F, area…" autocomplete="off">
+                </label>
+                <div id="list"></div>
+            </div>
+
+            <div id="screen-page" class="screen hidden">
+                <section class="card" id="formula-card"></section>
+                <section class="card" id="try-card">
+                    <h2>Try it: show my work</h2>
+                    <form id="try-form">
+                        <div id="inputs"></div>
+                        <button type="submit">Show my work</button>
+                    </form>
+                    <p id="error" class="error"></p>
+                </section>
+                <section class="card hidden" id="work-card">
+                    <h2>The work</h2>
+                    <ol id="steps"></ol>
+                    <p id="plain" class="say"></p>
+                </section>
+            </div>
+        </main>
+        <script src="formulas.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
