@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MathSteps | Step solver</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header> 
+            <h1>Step<span>Solver</span></h1>
+        </header>
+        <main>
+            <section class="card">
+                <h2>Type a problem</h2>
+                <form id="solve-form">
+                    <div id="inputs">
+                        <label>Problem
+                            <input type="text" id="problem" value="12 + 3*4.5" autocomplete="off">
+                        </label>
+                    </div>
+                    <button type="submit">Chop it up</button>
+                </form>
+            </section>
+            <section class="card">
+                <h2>The pieces</h2>
+                <ol id="steps"></ol>
+            </section>
+        </main>
+        <script src="solver.js"></script>
+    </body>
+</html>
