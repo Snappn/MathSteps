@@ -2,7 +2,7 @@
 // URL hash picks the screen: "#/" = home list, "#/f/slope" = the slope page.
 // Using the hash means the phone's back button works.
 
-const GROUP_ORDER = ["Lines and graphs", "Equations", "Exponents and roots", "Percent", "Shapes", "Conversions"];
+const GROUP_ORDER = ["Lines and graphs", "Equations", "Polynomials", "Exponents and roots", "Percent", "Shapes", "Conversions"];
 
 let current = null;   // the formula whose page is open
 
@@ -107,6 +107,14 @@ function renderPage(f) {
                 option.value = o.value;
                 box.appendChild(option);
             });
+        } else if (input.text) {
+            // A typed polynomial like 3x^2 - 2x + 5: full width, plain keyboard
+            label.className = "wide";
+            box = el("input");
+            box.type = "text";
+            box.autocomplete = "off";
+            box.autocapitalize = "off";
+            box.spellcheck = false;
         } else {
             box = el("input");
             box.type = "number";
@@ -134,6 +142,12 @@ function showWork(event) {
         const text = document.getElementById("in-" + input.id).value;
         raw[input.id] = text;
         if (input.options) {
+            values[input.id] = text;
+        } else if (input.text) {
+            if (text.trim() === "") {
+                error.textContent = "Fill in every box.";
+                return;
+            }
             values[input.id] = text;
         } else if (text.trim() === "") {
             if (!input.optional) {

@@ -4,10 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MathSteps | Step solver</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <header> 
+        <header>
+            <a href="index.html" id="back" aria-label="Back to all formulas">&#8249;</a>
             <h1>Step<span>Solver</span></h1>
         </header>
         <main>
@@ -15,16 +17,19 @@
                 <h2>Type a problem</h2>
                 <form id="solve-form">
                     <div id="inputs">
-                        <label>Problem
-                            <input type="text" id="problem" value="12 + 3*4.5" autocomplete="off">
+                        <label class="wide">Problem
+                            <input type="text" id="problem" value="3(x - 2) = x + 4" autocomplete="off" autocapitalize="off" spellcheck="false">
                         </label>
                     </div>
-                    <button type="submit">Chop it up</button>
+                    <button type="submit">Show every step</button>
                 </form>
+                <p id="error" class="error"></p>
+                <p class="note">Works with + - * / ^ ( ), negatives, 2(3 + 4), pasted × ÷ −, and one x: 2x + 3 = 11. Try 2^3^2, 10 - 2*3 + 8/4, 5x - 2 = 3x + 8.</p>
             </section>
             <section class="card">
-                <h2>The pieces</h2>
+                <h2>The work</h2>
                 <ol id="steps"></ol>
+                <p id="plain" class="say"></p>
             </section>
         </main>
         <script src="solver.js"></script>
