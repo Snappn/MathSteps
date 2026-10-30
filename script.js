@@ -101,6 +101,8 @@ function renderPage(f) {
         const label = el("label", null, input.label);
         let box;
         if (input.options) {
+            // Phones won't wrap dropdown text, so each dropdown gets its own full-width row
+            label.className = "wide";
             box = el("select");
             input.options.forEach(function (o) {
                 const option = el("option", null, o.label);
